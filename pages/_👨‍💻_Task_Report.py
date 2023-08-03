@@ -7,8 +7,31 @@ from datetime import datetime
 import pandas as pd
 import numpy as np
 
-import ifcopenshell
 
+#### Database
+
+
+from deta import Deta # pip install deta
+from dotenv import load_dotenv 
+
+load_dotenv(".env")
+DETA_KEY = "a0eaq7dsd6v_dcuPKnANQY2E9o12c1k3Ch2DKPQBLAUD"
+
+# Initialize with a project key
+
+deta = Deta(DETA_KEY)
+
+db = deta.Base("Info1")
+
+def save_to_database():
+    for task in session.task_data_1:
+        name = task["Name"]
+        activity_advance = task["ActivityAdvance"]
+        description = task["Description"]
+        # Save the task data to Deta
+        db.put({"Name": name, "ActivityAdvance": activity_advance, "Description": description})
+
+#### Database
 
 def initialize_session_state():
     session["isHealthDataLoaded"] = False
@@ -16,6 +39,7 @@ def initialize_session_state():
     session["SequenceData"] = {}
     session["task_data_1"] = []
     session["modified"] = False
+
 
 def load_data():
     if "ifc_file" in session:
@@ -105,6 +129,7 @@ def execute():
                         submitted = st.form_submit_button("Save changes!")
                         if submitted:
                             # Copying the changes to the original dictionaries in task_data
+                            
                             for i, new_value in enumerate(new_values):
                                 session.task_data_1[i]["ActivityAdvance"] = new_value
 
@@ -119,11 +144,13 @@ def execute():
                                 elif new_value == 100:
                                     Description= "Finished"
 
-                        
                                 session.task_data_1[i]["Description"] = Description
+                            
+                            save_to_database()
                             st.write("Data saved!")
                             st.table(session.task_data_1)
-                            session.modified = True            
+                            session.modified = True
+
 
                 else:
                     st.warning("No Tasks 😵")

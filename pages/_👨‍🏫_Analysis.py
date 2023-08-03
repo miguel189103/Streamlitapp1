@@ -7,6 +7,7 @@ import pandas as pd
 import plotly.express as px
 
 
+
 session = st.session_state
 
 def initialize_session_state_1():
