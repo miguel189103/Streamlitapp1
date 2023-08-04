@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
 RUN git clone https://github.com/miguel189103/Streamlitapp1.git .
 
 RUN pip3 install -r requirements.txt
+RUN pip install deta
 
 EXPOSE 8501
 
