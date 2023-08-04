@@ -12,9 +12,7 @@ import numpy as np
 
 
 from deta import Deta # pip install deta
-from dotenv import load_dotenv 
 
-load_dotenv(".env")
 DETA_KEY = "a0eaq7dsd6v_dcuPKnANQY2E9o12c1k3Ch2DKPQBLAUD"
 
 # Initialize with a project key
