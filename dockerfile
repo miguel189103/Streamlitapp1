@@ -15,6 +15,7 @@ RUN git clone https://github.com/miguel189103/Streamlitapp1.git .
 
 RUN pip3 install -r requirements.txt
 RUN pip install deta
+RUN pip install python-dotenv
 
 EXPOSE 8501
 
